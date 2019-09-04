@@ -98,6 +98,19 @@ class Game extends React.Component {
     });
   }
 
+  handleClickOrdem(){
+    console.log("Entrou no handleClickOrdem()");
+    if (this.state.isCrescente) {
+      this.setState({
+        isCrescente:false
+      });
+    } else {
+      this.setState({
+        isCrescente:true
+      });
+    }
+  }
+
   render() {
 
     const history = this.state.history;
@@ -106,7 +119,7 @@ class Game extends React.Component {
 
 
 
-    const moves = history.map((element, index) => {
+    let jogadas = history.map((element, index) => {
 
       const valueButton = index ?
         'Go to move #' + index :
@@ -120,6 +133,8 @@ class Game extends React.Component {
       }else{
         style={};
       }
+
+
 
       return (
         <li key={index}>
@@ -145,12 +160,9 @@ class Game extends React.Component {
     if (this.state.isCrescente) {
       ordem +="CRESCENTE";
     } else {
+      jogadas=jogadas.reverse();
       ordem +="DECRESCENTE";
     }
-
-
-
-
 
     return (
       <div>
@@ -166,15 +178,15 @@ class Game extends React.Component {
             <br/>
             <div>{ordem}</div>
             <br/>
-            <button  >
+            <button  onClick={()=>this.handleClickOrdem()}>
               Clique aqui para inverter a ordem atual das jogadas
             </button>
           </div>
 
         </div>
-        <div className="jogadas">
+        <div className="jogadas" >
            <p>JOGADAS:</p>
-          <ol>{moves}</ol>
+          <ol reversed={!this.state.isCrescente} >{jogadas}</ol>
         </div>
       </div>
     );
