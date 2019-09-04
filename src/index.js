@@ -31,7 +31,7 @@ function Board(props){
     return(
       <div key={numRow} className="board-row">
           {row}
-        </div>
+      </div>
     );
   }
 
@@ -65,7 +65,7 @@ class Game extends React.Component {
       ],
       stepNumber: 0,
       xIsNext: true,
-      styleBold:{fontWeight:'bold'}
+      isCrescente:true
 
     };
   }
@@ -86,6 +86,7 @@ class Game extends React.Component {
       ]),
       stepNumber: history.length,
       xIsNext: !this.state.xIsNext,
+
 
     });
   }
@@ -113,7 +114,6 @@ class Game extends React.Component {
 
       let style;
 
-
       if(index === this.state.stepNumber){
 
         style={fontWeight:'bold'};
@@ -133,25 +133,47 @@ class Game extends React.Component {
     });
 
     let status;
+
     if (winner) {
       status = "Winner: " + winner;
     } else {
       status = "Next player: " + (this.state.xIsNext ? "X" : "O");
     }
 
+    let ordem="As jogadas encontram-se em ordem: ";
+
+    if (this.state.isCrescente) {
+      ordem +="CRESCENTE";
+    } else {
+      ordem +="DECRESCENTE";
+    }
+
+
 
 
 
     return (
-      <div className="game">
-        <div className="game-board">
-          <Board
-            squares={current.squares}
-            onClick={i => this.handleClick(i)}
-          />
+      <div>
+        <div className="game">
+          <div className="game-board">
+            <Board
+              squares={current.squares}
+              onClick={i => this.handleClick(i)}
+            />
+          </div>
+          <div className="game-info">
+            <div>{status}</div>
+            <br/>
+            <div>{ordem}</div>
+            <br/>
+            <button  >
+              Clique aqui para inverter a ordem atual das jogadas
+            </button>
+          </div>
+
         </div>
-        <div className="game-info">
-          <div>{status}</div>
+        <div className="jogadas">
+           <p>JOGADAS:</p>
           <ol>{moves}</ol>
         </div>
       </div>

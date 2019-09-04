@@ -5,6 +5,11 @@ body {
 
 ol, ul {
   padding-left: 30px;
+
+}
+
+p{
+  padding-left: 20px;
 }
 
 .board-row:after {
@@ -47,4 +52,10 @@ ol, ul {
 
 .game-info {
   margin-left: 20px;
+}
+/* dando um toque no layout do jogo pra mostrar as jogadas alinhadas horizontalmente */
+.jogadas{
+
+  display: flex;
+  flex-direction: column;
 }
