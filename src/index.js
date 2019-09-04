@@ -14,30 +14,41 @@ function Board(props){
   function renderSquare(i) {
     return (
       <Square
+        key={i}
         value={props.squares[i]}
         onClick={() => {props.onClick(i)}}
       />
     );
   }
 
+  function renderRow(numRow){
+    var row = []
+    for(let i=numRow*3;i<numRow*3+3;i++){
+
+      row.push(renderSquare(i));
+
+    }
+    return(
+      <div key={numRow} className="board-row">
+          {row}
+        </div>
+    );
+  }
+
+  function renderRows(numRows){
+    var rows = [];
+
+    for (let i=0;i<numRows;i++){
+      rows.push(renderRow(i));
+    }
+
+    return(rows);
+  }
+
 
     return (
       <div>
-        <div className="board-row">
-          {renderSquare(0)}
-          {renderSquare(1)}
-          {renderSquare(2)}
-        </div>
-        <div className="board-row">
-          {renderSquare(3)}
-          {renderSquare(4)}
-          {renderSquare(5)}
-        </div>
-        <div className="board-row">
-          {renderSquare(6)}
-          {renderSquare(7)}
-          {renderSquare(8)}
-        </div>
+        {renderRows(3)}
       </div>
     );
 
@@ -85,7 +96,7 @@ class Game extends React.Component {
       xIsNext: (step % 2) === 0
     });
   }
-  
+
   render() {
 
     const history = this.state.history;
@@ -101,7 +112,10 @@ class Game extends React.Component {
         'Go to game start';
 
       let style;
-      if(index == this.state.stepNumber){
+
+
+      if(index === this.state.stepNumber){
+
         style={fontWeight:'bold'};
       }else{
         style={};
