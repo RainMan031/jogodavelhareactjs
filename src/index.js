@@ -12,7 +12,7 @@ function Square(props) {
     </button>
   );
 }
-o
+
 function Board(props){
   const current= props.squares.slice();
   const vetSquaresWinner = calculateWinner(current);
@@ -23,7 +23,7 @@ function Board(props){
       for(let j=0;j<3;j++){
         if(vetSquaresWinner[j]===i){
           style={backgroundColor:'#237401'};
-          
+
         }
       }
     }
@@ -132,6 +132,14 @@ class Game extends React.Component {
     }
   }
 
+  elementoNulo(element){
+    if(element===null){
+      return true;
+    }else{
+      return;
+    }
+  }
+
   render() {
 
     const history = this.state.history;
@@ -170,12 +178,17 @@ class Game extends React.Component {
       );
     });
 
+    var vetNulos = current.squares.filter(this.elementoNulo);
+    console.log(vetNulos);
+
     let status;
 
     if (winner) {
       status = "Winner: " + (this.state.xIsNext ? "O" : "X") ;
 
-    } else {
+    } else if (!winner && vetNulos.length===0){
+      status = "Empate!"
+    }else{
       status = "Next player: " + (this.state.xIsNext ? "X" : "O");
     }
 
